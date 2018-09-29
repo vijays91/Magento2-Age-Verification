@@ -1,0 +1,83 @@
+<?php
+/**
+ * @author VIJAYAKUMAR S
+ * @copyright Copyright (c) 2018
+ * @package Learn_Ageverify
+ */
+?>
+
+<?php 
+	$helper = $this->helperInit();
+	$sess_value = $this->getValue();
+
+	$active = $helper->ageverify_enable();
+	$title = $helper->ageverify_title();
+	$content = $helper->ageverify_content();
+	$agree_button = $helper->ageverify_agree_button();
+	$disagree_button = $helper->ageverify_disagree_button();
+	$redirect_url = $helper->ageverify_redirect_url();
+	if (!preg_match("~^(?:f|ht)tps?://~i", $redirect_url)) {
+		$redirect_url = "http://" . $redirect_url;
+	}
+
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+	$base_url = $storeManager->getStore()->getBaseUrl();
+?>
+
+<?php if($active && empty($sess_value) && $sess_value != "m78v20a89"):?>
+
+	<div id="popup-modal-new" style="display: none;"><?php echo $content;?></div>
+
+	<script type="text/javascript">
+		var is_process = 1; // Global variable.
+	 	require(['jquery','Magento_Ui/js/modal/modal'],function($,modal) {
+	        var age_verification = {
+	            type: 'popup',
+	            responsive: true,
+	            innerScroll: true,
+				closeOnEscape: false,
+	            title: "<?php echo $title; ?>",
+				buttons: [
+					{
+						id: 'agree',
+						text: "<?php echo $agree_button; ?>",
+						class: "agree-button",
+						click: function() {ageVerification(true);}
+					},
+					{
+						id: 'disagree',
+						text: "<?php echo $disagree_button; ?>",
+						class: "disagree-button",
+						click: function() {
+							window.location.href = '<?php echo $redirect_url; ?>';
+						}
+					}
+            	],
+				modalClass: 'modal-age-verification'
+	        };		
+			var popup = modal(age_verification, $('#popup-modal-new'));
+			$("#popup-modal-new").modal("openModal");
+			$(".modal-age-verification .disagree-button").css("float", "left");
+			$(".modal-age-verification .action-close").remove();
+
+			function ageVerification(type) {
+				if(window.is_process == 1) {
+					$('body').loader('show');
+					window.is_process = 2;
+					$.post("<?php echo $base_url;?>ageverify/index/index", {type:type}).done(function(response) {
+						var obj = JSON.parse(JSON.stringify(response));
+						if(obj.success == 200) {
+							window.is_process = 1;
+							window.location.reload();
+						} else{
+							alert('Something went wrong...');
+						}
+					});
+				} else {
+					alert('Please wait...');
+				}
+			}
+		});
+	</script>
+<?php endif; ?>

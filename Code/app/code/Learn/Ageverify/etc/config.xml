@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author VIJAYAKUMAR S
+ * @copyright Copyright (c) 2018
+ * @package Learn_Ageverify
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Magento/Store/etc/config.xsd">
+    <default>
+        <ageverify_tab>
+            <ageverify_setting>
+                <ageverify_active>0</ageverify_active>
+				<ageverify_title><![CDATA[Age Verification]]></ageverify_title>
+                <ageverify_agree_button><![CDATA[18+ Enter]]></ageverify_agree_button>
+                <ageverify_disagree_button><![CDATA[Under 18]]></ageverify_disagree_button>
+                <ageverify_content><![CDATA[This website requires you to be 18 years or older to enter.]]></ageverify_content>
+				<ageverify_redirect><![CDATA[http://www.google.co.in]]></ageverify_redirect>
+            </ageverify_setting>
+        </ageverify_tab>
+    </default>
+</config>

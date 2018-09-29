@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author VIJAYAKUMAR S
+ * @copyright Copyright (c) 2018
+ * @package Learn_Ageverify
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="vijaystore" translate="label" sortOrder="180">
+            <label>Vijay</label>
+        </tab>
+        <section id="ageverify_tab" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Age Verify</label>
+            <tab>vijaystore</tab>
+            <resource>Learn_Ageverify::ageverify_configuration</resource>
+            <group id="ageverify_setting" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Age Verify Settings</label>
+                <field id="ageverify_active" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Age Verify</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment></comment>
+                </field>
+                <field id="ageverify_title" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Popup Title</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                    <depends>
+                        <field id="*/*/ageverify_active">1</field>
+                    </depends>
+                </field>
+                <field id="ageverify_content" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Popup Content</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                    <depends>
+                        <field id="*/*/ageverify_active">1</field>
+                    </depends>
+                </field>
+                <field id="ageverify_agree_button" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Agree Button Text</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                    <depends>
+                        <field id="*/*/ageverify_active">1</field>
+                    </depends>
+                </field>
+                <field id="ageverify_disagree_button" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disagree Button text</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                    <depends>
+                        <field id="*/*/ageverify_active">1</field>
+                    </depends>
+                </field>
+                <field id="ageverify_redirect" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Redirect URL</label>
+                    <validate>required-entry</validate>
+                    <comment></comment>
+                    <depends>
+                        <field id="*/*/ageverify_active">1</field>
+                    </depends>
+                </field>                
+            </group>
+        </section>
+    </system>
+</config>
